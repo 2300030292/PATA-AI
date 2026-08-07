@@ -1,113 +1,280 @@
-# AI-Powered Last-Mile Delivery Optimizer
+# 📍 Pata AI
+### Location Intelligence for Last-Mile Delivery
 
-An operations dashboard for last-mile delivery teams. The existing React interface, Supabase integration, maps, alerts, sustainability metrics, GPS, and offline support are preserved. The decision layer is now served by a FastAPI service:
+Pata AI is an AI-powered multilingual address resolution platform designed for logistics and last-mile delivery. It converts unstructured delivery addresses into standardized, geocoded locations with confidence scores, audit logs, voice input, and interactive maps.
 
-```text
-React + Vite dashboard
-        │ REST
-        ▼
-FastAPI Delivery Intelligence API
-   ├── XGBoost ETA regression model
-   └── Google OR-Tools vehicle-routing solver
-```
+---
 
-## What is genuinely AI-powered?
+## 🚀 Project Overview
 
-| Capability | Implementation | Classification |
-| --- | --- | --- |
-| Delivery ETA | XGBoost regression model trained on historical delivery records | Machine learning |
-| Stop sequencing | Google OR-Tools capacity-constrained vehicle-routing problem solver | Operations research / optimization |
-| Risk badges, festival and emergency modes | Existing application business rules | Business logic, not ML |
+Last-mile delivery often suffers from inaccurate or incomplete addresses, leading to delayed deliveries, increased operational costs, and poor customer experience.
 
-This distinction is deliberate: OR-Tools produces real optimized routes, but it is not a machine-learning model.
+Pata AI solves this problem by:
 
-## AI service API
+- Parsing multilingual delivery addresses
+- Standardizing address formats
+- Verifying landmarks and pincodes
+- Generating confidence scores
+- Displaying resolved locations on an interactive map
+- Supporting voice-based address input
 
-The FastAPI service exposes interactive OpenAPI documentation at `http://localhost:8000/docs`.
+---
 
-| Method | Endpoint | Purpose |
-| --- | --- | --- |
-| GET | `/health` | Confirms service status and model availability |
-| POST | `/predict-eta` | Predicts one delivery ETA in minutes |
-| POST | `/predict-etas` | Batch ETA predictions used by the dashboard |
-| POST | `/optimize-route` | Solves a capacity-constrained route with OR-Tools |
+# ✨ Features
 
-`src/services/aiService.js` is the single frontend integration point. It calls the service when it is available; the original rule-based estimate remains only as an explicit offline/first-run fallback so the dashboard does not break without a network connection or a deployed model.
+## 🌍 Multilingual Address Parsing
 
-## Train the ETA model
+Supports:
 
-The training process uses the public [Food Delivery Time Prediction Case Study dataset](https://www.kaggle.com/datasets/gauravmalik26/food-delivery-dataset). Download its CSV locally; Kaggle requires that step so credentials are never committed to this repository.
+- English
+- Hindi
+- Telugu
+- Tamil
 
-```bash
+---
+
+## 🎤 Voice Input
+
+Users can speak delivery addresses using browser speech recognition.
+
+---
+
+## 🧠 AI Address Resolution
+
+- Address normalization
+- Landmark verification
+- Area identification
+- City detection
+- Pincode extraction
+
+---
+
+## 📍 Interactive Map
+
+Displays resolved delivery locations using:
+
+- Leaflet.js
+- OpenStreetMap
+
+---
+
+## 📊 Confidence Score
+
+Each resolved address receives an AI confidence score.
+
+Example:
+
+- 98% High Confidence
+- 96% High Confidence
+- 93% High Confidence
+- 50% Low Confidence
+
+---
+
+## 📝 Audit Log
+
+Maintains complete traceability by storing:
+
+- Original Address
+- Corrected Address
+- Confidence
+- Reason
+- Revert Action
+
+---
+
+## 🌐 Geoapify Integration
+
+Unknown addresses are automatically resolved using the Geoapify Geocoding API.
+
+---
+
+# 🏗 Architecture
+
+                User
+                  │
+                  ▼
+         React Frontend (Pata AI)
+                  │
+      Voice / Text Address Input
+                  │
+                  ▼
+        FastAPI Backend (Python)
+                  │
+      ┌───────────┴───────────┐
+      │                       │
+Known Demo Address     Geoapify API
+      │                       │
+      └───────────┬───────────┘
+                  ▼
+        Parsed Address Engine
+                  │
+                  ▼
+     Confidence & Audit Generator
+                  │
+                  ▼
+      Leaflet Interactive Map
+
+---
+
+# 🛠 Tech Stack
+
+## Frontend
+
+- React.js
+- Tailwind CSS
+- React Leaflet
+- Lucide React
+
+## Backend
+
+- Python
+- FastAPI
+- Pydantic
+
+## APIs
+
+- Geoapify Geocoding API
+- Web Speech API
+
+## Maps
+
+- Leaflet.js
+- OpenStreetMap
+
+---
+
+# 📂 Project Structure
+
+Pata-AI/
+│
+├── backend/
+│   ├── main.py
+│   ├── requirements.txt
+│   └── models/
+│
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   │    └── AddressResolver/
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   └── package.json
+│
+└── README.md
+
+---
+
+# ⚙️ Installation
+
+## Clone Repository
+
+git clone https://github.com/yourusername/Pata-AI.git
+
+---
+
+## Backend
+
 cd backend
-python -m venv .venv
-# Windows PowerShell
-.\.venv\Scripts\Activate.ps1
+
 pip install -r requirements.txt
-python train_eta.py --data "path\\to\\Food Delivery Time Prediction Case Study.csv"
-```
 
-This creates `backend/models/eta_model.joblib` and `backend/models/metrics.json`. The metrics file records held-out MAE, RMSE, R², data split sizes, and model configuration output. It is intentionally generated from the actual downloaded dataset rather than inventing model metrics.
+uvicorn main:app --reload
 
-Features: route distance, traffic level, order hour, weather, number of remaining deliveries, festival indicator, and package weight. The cited dataset does not include parcel weight, so training uses a neutral 1 kg default for that feature; production data should replace it with observed weights before retraining.
+Backend runs on:
 
-## Run locally
+http://127.0.0.1:8000
 
-Terminal 1 — API:
+---
 
-```bash
-cd backend
-uvicorn main:app --reload --port 8000
-```
+## Frontend
 
-Terminal 2 — dashboard:
+cd frontend
 
-```bash
 npm install
+
 npm run dev
-```
 
-Vite proxies `/ai-api` to the local FastAPI service. For a deployed service, create `.env.local` in the frontend root:
+Frontend runs on:
 
-```text
-VITE_AI_API_URL=https://your-api.example.com
-```
+http://localhost:5173
 
-## Docker
+---
 
-After training the model, start the backend with:
+# 🔑 Geoapify API Setup
 
-```bash
-docker compose up --build
-```
+1. Create a free account at
 
-The compose setup mounts `backend/models` so the trained artifact is available to the container. The frontend can continue to run through Vite during development or be deployed independently (for example, on Vercel) with `VITE_AI_API_URL` set to the API URL.
+https://www.geoapify.com/
 
-## Existing dashboard features
+2. Generate an API Key
 
-- Supabase-compatible optimized-order persistence
-- Map and GPS tracking
-- Offline cached delivery data
-- Emergency and festival business modes
-- Delay and risk monitoring
-- Sustainability metrics and delivery consolidation
-- Mobile-friendly delivery agent view
+3. Replace the API key inside
 
-## Future improvements
+main.py
 
-- Train on the organisation's historical order, driver, weather, and travel-time records.
-- Use a road-network travel-time matrix instead of straight-line distance in the OR-Tools solver.
-- Store predictions and actual completion times for monitoring MAE and retraining triggers.
-- Add multiple depots, driver shifts, time windows, vehicle capacities, and live traffic.
+---
 
-## Project structure
+# 📸 Screenshots
 
-```text
-backend/
-  main.py          # FastAPI schemas, XGBoost inference and OR-Tools API
-  train_eta.py     # Reproducible training/evaluation pipeline
-  requirements.txt
-  Dockerfile
-  models/          # Generated local model and evaluation metrics (gitignored)
-src/services/aiService.js  # Minimal React-to-API adapter
-```
+## Home Page
+
+(Add Screenshot)
+
+---
+
+## Voice Input
+
+(Add Screenshot)
+
+---
+
+## Address Resolution
+
+(Add Screenshot)
+
+---
+
+## Interactive Map
+
+(Add Screenshot)
+
+---
+
+## Audit Log
+
+(Add Screenshot)
+
+---
+
+# 📈 Workflow
+
+1. User enters delivery address
+2. Voice or text input accepted
+3. Backend processes address
+4. Demo addresses resolved locally
+5. Unknown addresses resolved using Geoapify
+6. Parsed address generated
+7. Confidence score calculated
+8. Audit log created
+9. Interactive map displayed
+
+---
+
+# 🎯 Future Enhancements
+
+- Google Maps Integration
+- Route Optimization
+- ETA Prediction
+- Delivery Agent Dashboard
+- Blockchain Audit Trail
+- OCR Address Detection
+- QR Code Delivery Support
+
+---
+
+# 👨‍💻 Team
+
+Track 1 – Last Mile & Field Operations
+
+Team Members
