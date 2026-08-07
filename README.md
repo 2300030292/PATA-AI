@@ -169,7 +169,7 @@ Pata-AI/
 
 ## Clone Repository
 
-git clone https://github.com/yourusername/Pata-AI.git
+git clone https://github.com/2300030292/Pata-AI.git
 
 ---
 
@@ -219,31 +219,36 @@ main.py
 
 ## Home Page
 
-(Add Screenshot)
+<img width="1919" height="870" alt="image" src="https://github.com/user-attachments/assets/57d8d6c8-6885-4803-8d23-065eb29cefd5" />
+
 
 ---
 
 ## Voice Input
 
-(Add Screenshot)
+<img width="1919" height="1019" alt="image" src="https://github.com/user-attachments/assets/5985c294-4178-46cb-a11b-70bcad07d2d0" />
+
 
 ---
 
 ## Address Resolution
 
-(Add Screenshot)
+<img width="1200" height="848" alt="image" src="https://github.com/user-attachments/assets/eb0f6b34-6045-447f-993d-8eed890671fe" />
+
 
 ---
 
 ## Interactive Map
 
-(Add Screenshot)
+<img width="1149" height="870" alt="image" src="https://github.com/user-attachments/assets/9e8a627a-c64b-43c4-ac73-841fcdb4ac4c" />
+
 
 ---
 
 ## Audit Log
 
-(Add Screenshot)
+<img width="726" height="680" alt="image" src="https://github.com/user-attachments/assets/52e50b2f-634c-4373-b5c0-470e758d67aa" />
+
 
 ---
 
@@ -273,8 +278,4 @@ main.py
 
 ---
 
-# 👨‍💻 Team
 
-Track 1 – Last Mile & Field Operations
-
-Team Members
