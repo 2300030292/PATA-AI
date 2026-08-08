@@ -1,119 +1,159 @@
-# 📍 Pata AI
-### Location Intelligence for Last-Mile Delivery
+[08-08-2026 11:56] 2300032540_CHANDANA RAJA SRI_CSE: # 📍 Pata – AI Location Intelligence for Last-Mile Delivery
 
-Pata AI is an AI-powered multilingual address resolution platform designed for logistics and last-mile delivery. It converts unstructured delivery addresses into standardized, geocoded locations with confidence scores, audit logs, voice input, and interactive maps.
+An AI-powered Location Intelligence System that converts messy Indian addresses into standardized addresses using Gemini AI, verifies them with OpenStreetMap (OSM), and visualizes the verified location on an interactive map.
 
 ---
 
-## 🚀 Project Overview
+# 🚀 Project Overview
 
-Last-mile delivery often suffers from inaccurate or incomplete addresses, leading to delayed deliveries, increased operational costs, and poor customer experience.
+Indian delivery addresses are often incomplete, inconsistent, multilingual, or contain only landmarks.
 
-Pata AI solves this problem by:
+Example:
 
-- Parsing multilingual delivery addresses
-- Standardizing address formats
-- Verifying landmarks and pincodes
-- Generating confidence scores
-- Displaying resolved locations on an interactive map
-- Supporting voice-based address input
+door no 3-111
+
+or
+
+klu vaddeswaram
+
+or
+
+opp ranga bomma chakrayapalem
+
+Traditional geocoders fail to locate these addresses accurately.
+
+Pata solves this problem using Artificial Intelligence to understand, standardize, verify, and geocode Indian addresses.
 
 ---
 
 # ✨ Features
 
-## 🌍 Multilingual Address Parsing
+## 🤖 AI Address Parsing
 
-Supports:
+Uses Google Gemini AI to
 
-- English
-- Hindi
-- Telugu
-- Tamil
+- Detect language
+- Translate to English
+- Correct spelling mistakes
+- Standardize address
+- Extract landmark
+- Extract locality
+- Extract city
+- Extract state
+- Extract pincode
+
+---
+
+## 📍 Smart Address Standardization
+
+Messy input
+
+klu vaddeswaram
+
+↓
+
+Standardized Output
+
+Koneru Lakshmaiah Education Foundation (KL University),
+Vaddeswaram,
+Guntur District,
+Andhra Pradesh,
+522502
+
+---
+
+## 🌍 OpenStreetMap Geocoding
+
+The standardized address is passed to OpenStreetMap (Nominatim) to obtain
+
+- Latitude
+- Longitude
+
+instead of geocoding the raw user input.
+
+This significantly improves mapping accuracy.
+
+---
+
+## 🗺 Interactive Map
+
+Displays
+
+- Verified marker
+- Accuracy circle
+- Landmark tooltip
+- Popup containing
+  - Corrected Address
+  - Landmark
+  - Coordinates
+  - Confidence Score
 
 ---
 
 ## 🎤 Voice Input
 
-Users can speak delivery addresses using browser speech recognition.
+Supports speech recognition using
+
+Web Speech API
+
+Users can speak the address instead of typing.
 
 ---
 
-## 🧠 AI Address Resolution
+## 📊 AI Confidence Score
 
-- Address normalization
-- Landmark verification
-- Area identification
-- City detection
-- Pincode extraction
+Displays confidence based on
 
----
-
-## 📍 Interactive Map
-
-Displays resolved delivery locations using:
-
-- Leaflet.js
-- OpenStreetMap
+- City identified
+- State identified
+- Locality identified
+- Landmark extracted
+- Pincode extracted
+- Address standardized
+- India Post verification
 
 ---
 
-## 📊 Confidence Score
+## 📋 Evidence Panel
 
-Each resolved address receives an AI confidence score.
+Shows why the address received its confidence score.
 
-Example:
+Example
 
-- 98% High Confidence
-- 96% High Confidence
-- 93% High Confidence
-- 50% Low Confidence
-
----
-
-## 📝 Audit Log
-
-Maintains complete traceability by storing:
-
-- Original Address
-- Corrected Address
-- Confidence
-- Reason
-- Revert Action
+- City identified
+- Landmark extracted
+- Pincode verified
+- Address standardized
 
 ---
 
-## 🌐 Geoapify Integration
+# 🏗 System Architecture
 
-Unknown addresses are automatically resolved using the Geoapify Geocoding API.
-
----
-
-# 🏗 Architecture
-
-                User
-                  │
-                  ▼
-         React Frontend (Pata AI)
-                  │
-      Voice / Text Address Input
-                  │
-                  ▼
-        FastAPI Backend (Python)
-                  │
-      ┌───────────┴───────────┐
-      │                       │
-Known Demo Address     Geoapify API
-      │                       │
-      └───────────┬───────────┘
-                  ▼
-        Parsed Address Engine
-                  │
-                  ▼
-     Confidence & Audit Generator
-                  │
-                  ▼
-      Leaflet Interactive Map
+                 User Input
+                     │
+                     ▼
+        Messy Indian Address
+                     │
+                     ▼
+             Gemini AI Parser
+                     │
+                     ▼
+      Standardized Address Generation
+                     │
+                     ▼
+         OpenStreetMap Geocoder
+                     │
+                     ▼
+      Latitude & Longitude Extraction
+                     │
+                     ▼
+          FastAPI REST API Response
+                     │
+                     ▼
+             React Dashboard
+                     │
+                     ▼
+     Leaflet Interactive Street Map
 
 ---
 
@@ -124,41 +164,56 @@ Known Demo Address     Geoapify API
 - React.js
 - Tailwind CSS
 - React Leaflet
-- Lucide React
+- Leaflet
+- Web Speech API
+
+---
 
 ## Backend
 
-- Python
 - FastAPI
-- Pydantic
+- Python
+- Google Gemini API
+- OpenStreetMap Nominatim
+- India Post Pincode Dataset
 
-## APIs
+---
 
-- Geoapify Geocoding API
-- Web Speech API
+## AI
 
-## Maps
+- Gemini 3.5 Flash
 
-- Leaflet.js
+---
+
+## Mapping
+
 - OpenStreetMap
+- Leaflet
 
 ---
 
 # 📂 Project Structure
 
-Pata-AI/
+Location-Intelligence/
 │
 ├── backend/
 │   ├── main.py
-│   ├── requirements.txt
-│   └── models/
+│   ├── services/
+│   │      gemini_service.py
+│   │      geocoder.py
+│   │      confidence.py
+│   │      pincode_service.py
+│   │
+│   └── requirements.txt
 │
 ├── frontend/
 │   ├── src/
-│   │   ├── components/
-│   │   │    └── AddressResolver/
-│   │   ├── App.jsx
-│   │   └── main.jsx
+│   │
+│   ├── components/
+│   │      AddressResolver/
+│   │      Dashboard/
+│   │      Map/
+│   │
 │   └── package.json
 │
 └── README.md
@@ -167,21 +222,19 @@ Pata-AI/
 
 # ⚙️ Installation
 
-## Clone Repository
-
-git clone https://github.com/2300030292/Pata-AI.git
-
----
-
 ## Backend
 
 cd backend
+
+python -m venv venv
+
+venv\Scripts\activate
 
 pip install -r requirements.txt
 
 uvicorn main:app --reload
 
-Backend runs on:
+Backend runs on
 
 http://127.0.0.1:8000
 
@@ -195,23 +248,72 @@ npm install
 
 npm run dev
 
-Frontend runs on:
+Frontend runs on
 
 http://localhost:5173
 
 ---
 
-# 🔑 Geoapify API Setup
+# 🔑 Environment Variables
 
-1. Create a free account at
+Create a .env file inside the backend folder.
 
-https://www.geoapify.com/
+GEMINI_API_KEY=YOUR_API_KEY
 
-2. Generate an API Key
+---
 
-3. Replace the API key inside
+# 🔄 Address Resolution Workflow
+[08-08-2026 11:56] 2300032540_CHANDANA RAJA SRI_CSE: 1. User enters a messy address.
+2. Gemini AI parses and standardizes the address.
+3. AI extracts
+   - Landmark
+   - Locality
+   - City
+   - State
+   - Pincode
+4. Standardized address is sent to OpenStreetMap.
+5. OpenStreetMap returns latitude and longitude.
+6. Backend computes confidence score.
+7. React displays:
+   - Standardized address
+   - Confidence score
+   - Verification evidence
+   - Interactive map
 
-main.py
+---
+
+# 📸 Sample Input
+
+klu vaddeswaram
+
+Output
+
+Corrected Address
+
+Koneru Lakshmaiah Education Foundation
+Vaddeswaram
+Guntur
+Andhra Pradesh
+522502
+
+Map
+
+✔️ Marker placed at verified location
+
+---
+
+Input
+
+door no 3-111 near ranga bomma chakrayapalem
+
+Output
+
+Door No 3-111
+Near Ranga Bomma
+Chakrayapalem
+Pedakurapadu
+Guntur
+522402
 
 ---
 
@@ -219,63 +321,54 @@ main.py
 
 ## Home Page
 
-<img width="1919" height="870" alt="image" src="https://github.com/user-attachments/assets/57d8d6c8-6885-4803-8d23-065eb29cefd5" />
+[<img width="1918" height="965" alt="Screenshot 2026-08-08 114229" src="https://github.com/user-attachments/assets/03a88f9b-5f87-4c5f-b19e-fc9500bcb9f9" />](https://drive.google.com/file/d/1VYRcVU5kmUXpgK50Yhibi3aSXqwtP5il/view?usp=sharing)
 
 
 ---
 
 ## Voice Input
 
-<img width="1919" height="1019" alt="image" src="https://github.com/user-attachments/assets/5985c294-4178-46cb-a11b-70bcad07d2d0" />
+[<img width="1917" height="962" alt="image" src="https://github.com/user-attachments/assets/7c3957cf-32a5-4f17-a48d-b75a1fa3d7b7" />](https://drive.google.com/file/d/1FyfZl7ChM893tFVkfnmF5ioaqY1hvepc/view?usp=sharing)
 
 
 ---
 
 ## Address Resolution
 
-<img width="1200" height="848" alt="image" src="https://github.com/user-attachments/assets/eb0f6b34-6045-447f-993d-8eed890671fe" />
+[<img width="882" height="911" alt="image" src="https://github.com/user-attachments/assets/536c64dc-78e6-4ab5-9fa1-c08e41ed2e56" />](https://drive.google.com/file/d/1fWcILeCwr6CUAnt73QPoi_3RqVGatRme/view?usp=sharing)
 
 
 ---
 
 ## Interactive Map
 
-<img width="1149" height="870" alt="image" src="https://github.com/user-attachments/assets/9e8a627a-c64b-43c4-ac73-841fcdb4ac4c" />
+<img width="608" height="589" alt="image" src="https://github.com/user-attachments/assets/d20ae2c4-adeb-4a57-b048-f535d676fc48" />
 
 
 ---
 
-## Audit Log
 
-<img width="726" height="680" alt="image" src="https://github.com/user-attachments/assets/52e50b2f-634c-4373-b5c0-470e758d67aa" />
+# 📈 Future Enhancements
 
-
----
-
-# 📈 Workflow
-
-1. User enters delivery address
-2. Voice or text input accepted
-3. Backend processes address
-4. Demo addresses resolved locally
-5. Unknown addresses resolved using Geoapify
-6. Parsed address generated
-7. Confidence score calculated
-8. Audit log created
-9. Interactive map displayed
+- Google Places API integration
+- Reverse geocoding
+- Route optimization
+- Delivery ETA prediction
+- Multi-language voice assistant
+- Offline pincode lookup
+- Duplicate address detection
+- Delivery analytics dashboard
 
 ---
 
-# 🎯 Future Enhancements
+# 🎯 Applications
 
-- Google Maps Integration
-- Route Optimization
-- ETA Prediction
-- Delivery Agent Dashboard
-- Blockchain Audit Trail
-- OCR Address Detection
-- QR Code Delivery Support
+- E-commerce Delivery
+- Logistics
+- Courier Services
+- Food Delivery
+- Emergency Response
+- Smart City Navigation
+- Postal Address Verification
 
 ---
-
-
