@@ -1,348 +1,375 @@
 📍 Pata – AI Location Intelligence for Last-Mile Delivery
-🚀 Project Overview
 
-Pata is an AI-powered Location Intelligence System designed to solve the challenges of inaccurate and incomplete Indian delivery addresses.
+An AI-powered Location Intelligence System that converts messy Indian addresses into standardized addresses using Gemini AI, verifies them with OpenStreetMap (OSM), and visualizes the verified location on an interactive map.
 
-Indian addresses are often:
+---
 
-Incomplete
-Misspelled
-Multilingual
-Based on landmarks instead of proper locations
+# 🚀 Project Overview
 
-Examples:
+Indian delivery addresses are often incomplete, inconsistent, multilingual, or contain only landmarks.
 
-klu vaddeswaram
-
-opp ranga bomma chakrayapalem
+Example:
 
 door no 3-111
 
-Traditional geocoding systems fail to correctly identify such addresses.
+or
 
-Pata uses Google Gemini AI to understand, correct, standardize, and extract important location information from messy Indian addresses. The standardized address is then verified using OpenStreetMap and displayed on an interactive map.
-
-✨ Key Features
-🤖 AI-Powered Address Understanding
-
-Using Gemini AI, the system performs:
-
-Language detection
-Translation into English
-Address correction
-Address standardization
-Landmark extraction
-Locality extraction
-City extraction
-State extraction
-Pincode extraction
-📍 Intelligent Address Standardization
-Input
 klu vaddeswaram
-AI Generated Output
-Koneru Lakshmaiah Education Foundation (KL University)
 
-Vaddeswaram
+or
 
-Guntur District
+opp ranga bomma chakrayapalem
 
-Andhra Pradesh
+Traditional geocoders fail to locate these addresses accurately.
 
+Pata solves this problem using Artificial Intelligence to understand, standardize, verify, and geocode Indian addresses.
+
+---
+
+# ✨ Features
+
+## 🤖 AI Address Parsing
+
+Uses Google Gemini AI to
+
+- Detect language
+- Translate to English
+- Correct spelling mistakes
+- Standardize address
+- Extract landmark
+- Extract locality
+- Extract city
+- Extract state
+- Extract pincode
+
+---
+
+## 📍 Smart Address Standardization
+
+Messy input
+
+klu vaddeswaram
+
+↓
+
+Standardized Output
+
+Koneru Lakshmaiah Education Foundation (KL University),
+Vaddeswaram,
+Guntur District,
+Andhra Pradesh,
 522502
 
-The system converts informal user input into a structured delivery-ready address.
+---
 
-🌍 Location Verification Using OpenStreetMap
+## 🌍 OpenStreetMap Geocoding
 
-After address standardization, the system verifies the location using OpenStreetMap services.
+The standardized address is passed to OpenStreetMap (Nominatim) to obtain
 
-The system retrieves:
+- Latitude
+- Longitude
 
-Latitude
-Longitude
-Verified map location
+instead of geocoding the raw user input.
 
-Example:
+This significantly improves mapping accuracy.
 
-Latitude:
-16.4001480
+---
 
-Longitude:
-80.6257540
+## 🗺 Interactive Map
 
-Using the corrected address improves geocoding accuracy compared to directly searching raw input.
+Displays
 
-🗺 Interactive Map Visualization
+- Verified marker
+- Accuracy circle
+- Landmark tooltip
+- Popup containing
+  - Corrected Address
+  - Landmark
+  - Coordinates
+  - Confidence Score
 
-The application provides an interactive map using React Leaflet.
+---
 
-The map displays:
+## 🎤 Voice Input
 
-Verified location marker
-Accuracy circle
-Landmark information
-Corrected address popup
-Coordinates
-Confidence score
-🎤 Voice-Based Address Input
-
-Users can provide addresses using voice input.
-
-Technology:
+Supports speech recognition using
 
 Web Speech API
 
-Benefits:
+Users can speak the address instead of typing.
 
-Faster input
-Supports natural speech
-Useful for delivery agents
-📊 AI Confidence Score
+---
 
-The system calculates confidence based on:
+## 📊 AI Confidence Score
 
-Address standardization
-Landmark extraction
-City detection
-State detection
-Pincode extraction
-Location verification
-Dataset validation
+Displays confidence based on
 
-Example:
+- City identified
+- State identified
+- Locality identified
+- Landmark extracted
+- Pincode extracted
+- Address standardized
+- India Post verification
 
-Confidence Score: 95%
-📋 Evidence-Based Verification
+---
 
-The system explains why the confidence score was generated.
+## 📋 Evidence Panel
 
-Example:
+Shows why the address received its confidence score.
 
-✓ Address corrected using Gemini AI
+Example
 
-✓ Landmark extracted
+- City identified
+- Landmark extracted
+- Pincode verified
+- Address standardized
 
-✓ Pincode verified
+---
 
-✓ Location verified using OpenStreetMap
-🏗 System Architecture
+# 🏗 System Architecture
+
                  User Input
-                     |
-                     |
+                     │
                      ▼
-          Messy Indian Address
-                     |
-                     |
+        Messy Indian Address
+                     │
                      ▼
-              Gemini AI Parser
-                     |
-                     |
+             Gemini AI Parser
+                     │
                      ▼
-        Address Standardization
-                     |
-                     |
+      Standardized Address Generation
+                     │
                      ▼
-          Location Verification
-                     |
-          ---------------------
-          |                   |
-          ▼                   ▼
- OpenStreetMap          India Post Dataset
- Geocoding              Pincode Validation
-          |
-          |
-          ▼
-   Latitude & Longitude
-          |
-          |
-          ▼
-       FastAPI Backend
-          |
-          |
-          ▼
-    React Dashboard
-          |
-          |
-          ▼
- Interactive Leaflet Map
-🛠 Technology Stack
-Frontend
-Technology	Purpose
-React.js	User Interface
-Tailwind CSS	Styling
-React Leaflet	Map Integration
-Leaflet	Interactive Maps
-Web Speech API	Voice Input
-Backend
-Technology	Purpose
-Python	Backend Development
-FastAPI	REST API Framework
-Google Gemini API	AI Address Processing
-OpenStreetMap Nominatim	Geocoding
-India Post Dataset	Pincode Verification
-AI Model
-Gemini 3.5 Flash
+         OpenStreetMap Geocoder
+                     │
+                     ▼
+      Latitude & Longitude Extraction
+                     │
+                     ▼
+          FastAPI REST API Response
+                     │
+                     ▼
+             React Dashboard
+                     │
+                     ▼
+     Leaflet Interactive Street Map
 
-Used for:
+---
 
-Natural language understanding
-Address extraction
-Address correction
-📂 Project Structure
+# 🛠 Tech Stack
+
+## Frontend
+
+- React.js
+- Tailwind CSS
+- React Leaflet
+- Leaflet
+- Web Speech API
+
+---
+
+## Backend
+
+- FastAPI
+- Python
+- Google Gemini API
+- OpenStreetMap Nominatim
+- India Post Pincode Dataset
+
+---
+
+## AI
+
+- Gemini 3.5 Flash
+
+---
+
+## Mapping
+
+- OpenStreetMap
+- Leaflet
+
+---
+
+# 📂 Project Structure
+
 Location-Intelligence/
-
 │
 ├── backend/
-│
 │   ├── main.py
-│   │
 │   ├── services/
-│   │      ├── gemini_service.py
-│   │      ├── geocoder.py
-│   │      ├── confidence.py
-│   │      └── pincode_service.py
+│   │      gemini_service.py
+│   │      geocoder.py
+│   │      confidence.py
+│   │      pincode_service.py
 │   │
 │   └── requirements.txt
 │
+├── frontend/
+│   ├── src/
+│   │
+│   ├── components/
+│   │      AddressResolver/
+│   │      Dashboard/
+│   │      Map/
+│   │
+│   └── package.json
 │
-└── frontend/
-    
-    ├── src/
-    │
-    ├── components/
-    │      ├── AddressResolver/
-    │      ├── Dashboard/
-    │      └── Map/
-    │
-    └── package.json
-⚙️ Installation & Setup
-Backend Setup
+└── README.md
 
-Navigate to backend:
+---
+
+# ⚙️ Installation
+
+## Backend
 
 cd backend
 
-Create virtual environment:
-
 python -m venv venv
-
-Activate environment:
-
-Windows:
 
 venv\Scripts\activate
 
-Install dependencies:
-
 pip install -r requirements.txt
-
-Run backend:
 
 uvicorn main:app --reload
 
-Backend URL:
+Backend runs on
 
 http://127.0.0.1:8000
-Frontend Setup
 
-Navigate to frontend:
+---
+
+## Frontend
 
 cd frontend
 
-Install packages:
-
 npm install
-
-Start application:
 
 npm run dev
 
-Frontend URL:
+Frontend runs on
 
 http://localhost:5173
-🔑 Environment Configuration
 
-Create .env file inside backend:
+---
+
+# 🔑 Environment Variables
+
+Create a .env file inside the backend folder.
 
 GEMINI_API_KEY=YOUR_API_KEY
-🔄 Address Resolution Workflow
-User enters an unstructured Indian address.
-Backend receives the address through FastAPI.
-Gemini AI processes the address.
-AI extracts:
-Landmark
-Locality
-City
-State
-Pincode
-The corrected address is sent to OpenStreetMap.
-Latitude and longitude are obtained.
-Confidence score is calculated.
-React dashboard displays:
-Corrected address
-Verification evidence
-Confidence score
-Interactive map
-📸 Sample Demonstration
-Example 1
-Input
+
+---
+
+# 🔄 Address Resolution Workflow
+[08-08-2026 11:56] 2300032540_CHANDANA RAJA SRI_CSE: 1. User enters a messy address.
+2. Gemini AI parses and standardizes the address.
+3. AI extracts
+   - Landmark
+   - Locality
+   - City
+   - State
+   - Pincode
+4. Standardized address is sent to OpenStreetMap.
+5. OpenStreetMap returns latitude and longitude.
+6. Backend computes confidence score.
+7. React displays:
+   - Standardized address
+   - Confidence score
+   - Verification evidence
+   - Interactive map
+
+---
+
+# 📸 Sample Input
+
 klu vaddeswaram
+
 Output
+
+Corrected Address
+
 Koneru Lakshmaiah Education Foundation
-
 Vaddeswaram
-
 Guntur
-
 Andhra Pradesh
-
 522502
 
-Result:
+Map
 
-✓ Location verified
-✓ Coordinates generated
-✓ Map marker displayed
-Example 2
+✔️ Marker placed at verified location
+
+---
+
 Input
+
 door no 3-111 near ranga bomma chakrayapalem
+
 Output
+
 Door No 3-111
-
 Near Ranga Bomma
-
 Chakrayapalem
-
 Pedakurapadu
-
 Guntur
-
 522402
-📈 Future Enhancements
 
-Future improvements:
+---
 
-Google Places API integration
-Reverse geocoding
-Real-time route optimization
-Delivery ETA prediction
-Multi-language voice assistant
-Offline address resolution
-Duplicate address detection
-Delivery analytics dashboard
-🎯 Applications
+# 📸 Screenshots
 
-The system can be used in:
+## Home Page
 
-🛒 E-commerce delivery platforms
-🚚 Logistics companies
-📦 Courier services
-🍔 Food delivery applications
-🚑 Emergency response systems
-🏙 Smart city navigation
-📮 Postal address verification
-✅ Conclusion
+[<img width="1918" height="965" alt="Screenshot 2026-08-08 114229" src="https://github.com/user-attachments/assets/03a88f9b-5f87-4c5f-b19e-fc9500bcb9f9" />](https://drive.google.com/file/d/1VYRcVU5kmUXpgK50Yhibi3aSXqwtP5il/view?usp=sharing)
 
-Pata provides an intelligent solution for Indian address challenges by combining Generative AI, geospatial technologies, and location verification systems.
 
-The system transforms unstructured addresses into accurate, verified, and map-ready locations, improving efficiency and reliability in last-mile delivery operations.
+---
+
+## Voice Input
+
+[<img width="1917" height="962" alt="image" src="https://github.com/user-attachments/assets/7c3957cf-32a5-4f17-a48d-b75a1fa3d7b7" />](https://drive.google.com/file/d/1FyfZl7ChM893tFVkfnmF5ioaqY1hvepc/view?usp=sharing)
+
+
+---
+
+## Address Resolution
+
+[<img width="882" height="911" alt="image" src="https://github.com/user-attachments/assets/536c64dc-78e6-4ab5-9fa1-c08e41ed2e56" />](https://drive.google.com/file/d/1fWcILeCwr6CUAnt73QPoi_3RqVGatRme/view?usp=sharing)
+
+
+---
+
+## Interactive Map
+
+<img width="608" height="589" alt="image" src="https://github.com/user-attachments/assets/d20ae2c4-adeb-4a57-b048-f535d676fc48" />
+
+
+---
+
+
+# 📈 Future Enhancements
+
+- Google Places API integration
+- Reverse geocoding
+- Route optimization
+- Delivery ETA prediction
+- Multi-language voice assistant
+- Offline pincode lookup
+- Duplicate address detection
+- Delivery analytics dashboard
+
+---
+
+# 🎯 Applications
+
+- E-commerce Delivery
+- Logistics
+- Courier Services
+- Food Delivery
+- Emergency Response
+- Smart City Navigation
+- Postal Address Verification
+
+---
+[08-08-2026 11:58] 2300030292_NARENDRA KALYANAM: https://github.com/2300030292/PATA-AI
