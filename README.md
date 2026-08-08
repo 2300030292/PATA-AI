@@ -191,7 +191,7 @@ Example
 - Leaflet
 
 ---
-
+## STRUCTURE
 <img width="537" height="731" alt="image" src="https://github.com/user-attachments/assets/f0006aef-062d-4913-9687-ec51f53432d2" />
 
 # ⚙️ Installation
