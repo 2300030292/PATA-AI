@@ -1,4 +1,4 @@
-[08-08-2026 11:56] 2300032540_CHANDANA RAJA SRI_CSE: # 📍 Pata – AI Location Intelligence for Last-Mile Delivery
+# 📍 Pata – AI Location Intelligence for Last-Mile Delivery
 
 An AI-powered Location Intelligence System that converts messy Indian addresses into standardized addresses using Gemini AI, verifies them with OpenStreetMap (OSM), and visualizes the verified location on an interactive map.
 
